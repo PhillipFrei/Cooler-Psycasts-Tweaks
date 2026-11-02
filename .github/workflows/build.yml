@@ -1,0 +1,50 @@
+name: Build Cooler Psycasts Tweaks (RimWorld 1.6)
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Validate XML syntax
+        shell: pwsh
+        run: |
+          Get-ChildItem -Path "1.6" -Recurse -Filter "*.xml" | ForEach-Object {
+            $null = [xml](Get-Content -Raw $_.FullName)
+            Write-Host "Valid XML:" $_.FullName
+          }
+      - name: Restore
+        run: dotnet restore "1.6/Source/CoolerPsycastsTweaks.csproj"
+      - name: Compile RimWorld 1.6 DLL
+        run: dotnet build "1.6/Source/CoolerPsycastsTweaks.csproj" --configuration Release --no-restore
+      - name: Package installable mod
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path "publish/CoolerPsycastsTweaks/1.6/Assemblies" | Out-Null
+          Copy-Item -Recurse "About" "publish/CoolerPsycastsTweaks/About"
+          Copy-Item "1.6/Assemblies/CoolerPsycastsTweaks.dll" "publish/CoolerPsycastsTweaks/1.6/Assemblies/"
+          foreach ($folder in @("Defs", "Patches", "Textures")) {
+            $path = "1.6/$folder"
+            if (Test-Path $path) {
+              Copy-Item -Recurse $path "publish/CoolerPsycastsTweaks/1.6/$folder"
+            }
+          }
+          Compress-Archive -Path "publish/CoolerPsycastsTweaks" -DestinationPath "CoolerPsycastsTweaks-RW1.6.zip" -Force
+      - name: Upload compiled mod
+        uses: actions/upload-artifact@v4
+        with:
+          name: CoolerPsycastsTweaks-RW1.6
+          path: CoolerPsycastsTweaks-RW1.6.zip
+          if-no-files-found: error
