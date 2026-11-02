@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Make the five former special Archotech psycasts available in the regular level 7-10 pool.
+       Original ArchotechPsycast extension is deliberately removed. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Graftskip"]</xpath>
+    <value><level>7</level></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Multicast"]</xpath>
+    <value><level>8</level></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_ReverseGravity"]</xpath>
+    <value><level>8</level></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_ReverseTime"]</xpath>
+    <value><level>9</level></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Unmake"]</xpath>
+    <value><level>10</level></value>
+  </Operation>
+
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Graftskip" or defName="CoolPsycasts_Multicast" or defName="CoolPsycasts_ReverseGravity" or defName="CoolPsycasts_ReverseTime" or defName="CoolPsycasts_Unmake"]/modExtensions[li/@Class="CoolPsycasts.ArchotechPsycast"]</xpath>
+  </Operation>
+  <!-- Archotech activity is linked to separately acquired Archotech abilities.
+       These five are now regular level-gated psycasts, so remove their former activity effect. -->
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Graftskip" or defName="CoolPsycasts_Multicast" or defName="CoolPsycasts_ReverseGravity" or defName="CoolPsycasts_ReverseTime" or defName="CoolPsycasts_Unmake"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityCauseArchotechActivity"]</xpath>
+  </Operation>
+
+  <!-- Gamma Ray: the real explosion call uses DamageDef.defaultDamage, not damAmount. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/defaultDamage</xpath>
+    <value><defaultDamage>30</defaultDamage></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GammaRay"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilitySpew"]/damAmount</xpath>
+    <value><damAmount>30</damAmount></value>
+  </Operation>
+
+  <!-- Gravity Pulse: AOE 4.9 -> 10; blunt hit 1 -> 10; pull 4 -> 8. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]/radius</xpath>
+    <value><radius>10</radius></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]/damage</xpath>
+    <value><damage>10</damage></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]/modExtensions/li[@Class="CoolPsycasts.DamageExtension"]/pushBackDistance</xpath>
+    <value><pushBackDistance>8</pushBackDistance></value>
+  </Operation>
+
+  <!-- Learn: keep the rest of the ability/costs intact, switch only its effect class. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Learn"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityLearn"]</xpath>
+    <value>
+      <li Class="CoolerPsycastsTweaks.CompProperties_ChooseSkill">
+        <baseAmount>10000</baseAmount>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Long cooldowns are handled and saved by RimWorld 1.6's Ability system.
+       60000 ticks/day * 7 days = 420000 ticks. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Unmake"]</xpath>
+    <value><cooldownTicksRange>420000</cooldownTicksRange></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_ReverseTime"]</xpath>
+    <value><cooldownTicksRange>420000</cooldownTicksRange></value>
+  </Operation>
+
+  <!-- Unmake: 100% recipe/build cost reconstruction instead of standard disassembly. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Unmake"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityUnmake"]</xpath>
+    <value><li Class="CoolerPsycastsTweaks.CompProperties_RecipeUnmake" /></value>
+  </Operation>
+
+  <!-- Reverse Time: full health reset + reconstruction of missing/added limbs.
+       TimeSickness is a separate original comp and still applies after the reset. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_ReverseTime"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityReverseTime"]</xpath>
+    <value><li Class="CoolerPsycastsTweaks.CompProperties_ResetBody" /></value>
+  </Operation>
+
+  <!-- Reverse Gravity: 6 cell AOE; use our own fall flyer to write injury
+       Hediffs directly instead of regular blunt TakeDamage. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_ReverseGravity"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityMakeFallFlyer"]</xpath>
+    <value>
+      <li Class="CoolerPsycastsTweaks.CompProperties_DirectFall">
+        <radius>6</radius>
+        <flyerDef>CPT_DirectFallingFlyer</flyerDef>
+      </li>
+    </value>
+  </Operation>
+  <!-- Gamma Ray: keep existing cone and cancer DamageDef, only use a
+       replacement DamageWorker for direct pawn injuries. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/workerClass</xpath>
+    <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGamma</workerClass></value>
+  </Operation>
+  <!-- Gravity Pulse: retain explosion, use worker with direct pawn injury + pull. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]/workerClass</xpath>
+    <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGravityPulse</workerClass></value>
+  </Operation>
+</Patch>

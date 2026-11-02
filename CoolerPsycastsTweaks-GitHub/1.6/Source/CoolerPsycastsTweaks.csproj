@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyName>CoolerPsycastsTweaks</AssemblyName>
+    <RootNamespace>CoolerPsycastsTweaks</RootNamespace>
+    <OutputType>Library</OutputType>
+    <OutputPath>../Assemblies/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Compile against publicly distributable reference assemblies, not proprietary game DLLs. -->
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" PrivateAssets="all" />
+    <!-- Harmony is provided at game runtime by the installed Harmony mod. -->
+    <PackageReference Include="Lib.Harmony" Version="2.3.6" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

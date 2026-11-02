@@ -1,0 +1,23 @@
+// C#-Vorlage (nicht kompiliert): später bei einem konkreten Effekt nach 1.6/Source/ verschieben.
+using RimWorld;
+using Verse;
+
+namespace CoolerPsycastsTweaks
+{
+    public class CompProperties_AbilityNew : CompProperties_AbilityEffect
+    {
+        public CompProperties_AbilityNew()
+        {
+            compClass = typeof(CompAbilityEffect_New);
+        }
+    }
+
+    public class CompAbilityEffect_New : CompAbilityEffect
+    {
+        public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
+        {
+            base.Apply(target, dest);
+            // Hier kommt die vom Benutzer definierte Wirkung hinein.
+        }
+    }
+}

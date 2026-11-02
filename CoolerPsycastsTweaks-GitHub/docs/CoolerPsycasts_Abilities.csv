@@ -1,0 +1,41 @@
+﻿DefName,Label,Level,PsyfocusCost,EntropyGain,Range,Effects,SourceFile
+CoolPsycasts_Despair,despair,1,0.04,8,29.9,CompProperties_AbilityGiveHediff; CoolPsycasts.CompProperties_AbilityAffectNeeds; CoolPsycasts.CompProperties_AbilityEndInspiration,1.6/Defs/Abilities/Despair.xml
+CoolPsycasts_EaseGravity,ease gravity,1,0,,0,CoolPsycasts.CompProperties_AbilityToggleHediff,1.6/Defs/Abilities/EaseGravity.xml
+CoolPsycasts_Emesis,emesis,1,0.015,8,29.9,CoolPsycasts.CompProperties_AbilityEmesis; CoolPsycasts.CompProperties_AbilityRemoveHediffs,1.6/Defs/Abilities/Emesis.xml
+CoolPsycasts_FieldOfFlowers,field of flowers,1,0.015,25,24.9,CoolPsycasts.CompProperties_AbilityFieldOfFlowers,1.6/Defs/Abilities/FieldOfFlowers.xml
+CoolPsycasts_SkillDrain,skill drain,1,0.05,,20,CoolPsycasts.CompProperties_AbilitySkillDrain,1.6/Defs/Abilities/SkillDrain.xml
+CoolPsycasts_VanometricCharge,vanometric charge,1,0.03,8,29.9,CoolPsycasts.CompProperties_AbilityVanometricCharge,1.6/Defs/Abilities/VanometricCharge.xml
+CoolPsycasts_Chemfuelskip,chemfuelskip,2,0.015,25,24.9,CoolPsycasts.CompProperties_AbilityChemfuelskip; CompProperties_AbilityEffecterOnTarget; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Chemfuelskip.xml
+CoolPsycasts_Distortion,distortion,2,0.08,25,24.9,CompProperties_AbilitySpawn; CompProperties_AbilityEffecterOnTarget; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Distortion.xml
+CoolPsycasts_InducePsychicStorm,induce psychic storm,2,0.7,120,0,CoolPsycasts.CompProperties_AbilitySetWeather,1.6/Defs/Abilities/InducePsychicStorm.xml
+CoolPsycasts_InduceRain,induce rain,2,0.1,30,0,CoolPsycasts.CompProperties_AbilitySetWeather,1.6/Defs/Abilities/InduceRain.xml
+CoolPsycasts_Timeshunt,timeshunt,2,0.15,16,24.9,CoolPsycasts.CompProperties_AbilityMidairSkip,1.6/Defs/Abilities/Timeshunt.xml
+CoolPsycasts_Trapraise,trapraise,2,0.08,25,24.9,CoolPsycasts.CompProperties_AbilitySpawnTrap; CompProperties_AbilityEffecterOnTarget; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Trapraise.xml
+CoolPsycasts_VentNeuralHeat,vent neural heat,2,0.03,,0,CoolPsycasts.CompProperties_AbilityVentNeuralHeat,1.6/Defs/Abilities/VentNeuralHeat.xml
+CoolPsycasts_ChunkRain,chunk rain,3,0.04,14,24.9,CoolPsycasts.CompProperties_AbilityChunkRain,1.6/Defs/Abilities/ChunkRain.xml
+CoolPsycasts_Illusion,illusion,3,0.03,34,20,CoolPsycasts.CompProperties_AbilitySpawnWithHediff,1.6/Defs/Abilities/Illusion.xml
+CoolPsycasts_MidairSkip,midair skip,3,0.04,14,24.9,CoolPsycasts.CompProperties_AbilityMidairSkip,1.6/Defs/Abilities/MidairSkip
+CoolPsycasts_Phase,phase,3,0.03,20,0,CompProperties_AbilityGiveHediff,1.6/Defs/Abilities/Phase.xml
+CoolPsycasts_PsychicFeedback,psychic feedback,3,0.03,14,29.9,CoolPsycasts.CompProperties_AbilityBrainDamage; CoolPsycasts.CompProperties_AbilityExplosionFromHeat,1.6/Defs/Abilities/PsychicFeedback.xml
+CoolPsycasts_Awaken,awaken,4,0.4,12,24.9,CoolPsycasts.CompProperties_AbilityAffectNeeds; CoolPsycasts.CompProperties_AbilityRemoveHediffs; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Awaken.xml
+Strip,strip,4,0.02,20,19.9,CompProperties_AbilityForceJob; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Strip.xml
+CoolPsycasts_Embed,embed psycast,5,0.08,25,24.9,CoolPsycasts.CompProperties_AbilitySpawnPsycastTrap; CompProperties_AbilityEffecterOnTarget,1.6/Defs/Abilities/Embed.xml
+CoolPsycasts_Execute,execute,5,0.025,20,26.9,CoolPsycasts.CompProperties_AbilityForceJobMulti; CompProperties_AbilityFleckOnTarget,1.6/Defs/Abilities/Execute.xml
+CoolPsycasts_Extend,extend,5,0.06,50,34.9,CoolPsycasts.CompProperties_AbilityCastAbility,1.6/Defs/Abilities/Extend.xml
+CoolPsycasts_OrganSkip,organ skip,5,0.4,42,24.9,CoolPsycasts.CompProperties_AbilityOrganSkip,1.6/Defs/Abilities/OrganSkip.xml
+CoolPsycasts_Enslave,enslave,6,0.6,80,24.9,CoolPsycasts.CompProperties_AbilityEnslave,1.6/Defs/Abilities/Enslave.xml
+CoolPsycasts_Learn,learn,7,0.3,,,CoolPsycasts.CompProperties_AbilityLearn; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/Learn.xml
+CoolPsycasts_Meteor,meteor,7,0.3,70,20,CoolPsycasts.CompProperties_AbilityMeteor; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/Meteor.xml
+CoolPsycasts_Portal,portal,7,0.5,80,3.9,CoolPsycasts.CompProperties_AbilitySpawnPortal; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/Portal.xml
+CoolPsycasts_EntropicFocus,entropic focus,8,0.03,,0,CompProperties_AbilityGiveHediff; CoolPsycasts.CompProperties_AbilityPreviewPsyfocusAmount; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/EntropicFocus.xml
+CoolPsycasts_GammaRay,gamma ray,8,0.1,70,20,CoolPsycasts.CompProperties_AbilitySpew; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/GammaRay.xml
+CoolPsycasts_GravityPulse,gravity pulse,8,0.07,40,20,CoolPsycasts.CompProperties_AbilityExplosion; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/GravityPulse.xml
+CoolPsycasts_Annihilate,annihilate,9,0.6,250,14.9,CoolPsycasts.CompProperties_AbilityAnnihilate; CoolPsycasts.CompProperties_AbilityGiveThoughtToAllMapPawns; CompProperties_AbilityEffecterOnTarget; CompProperties_AbilityGiveHediff; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/Annihilate.xml
+CoolPsycasts_Possess,possess,9,0.9,1500,,CoolPsycasts.CompProperties_AbilityBodyHop; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/Possess.xml
+CoolPsycasts_RewriteMind,rewrite mind,9,0.3,,,CoolPsycasts.CompProperties_AbilityRewriteMind; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/RewriteMind.xml
+CoolPsycasts_GrantPsycast,grant psycast,10,0.9,600,,CoolPsycasts.CompProperties_AbilityGrantPsycast; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Transcendant/GrantPsycast.xml
+CoolPsycasts_Graftskip,graftskip,,0.1,100,20,CoolPsycasts.CompProperties_AbilityGraftskip; CoolPsycasts.CompProperties_AbilityDestroyFactionRelations; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Archotech/Graftskip.xml
+CoolPsycasts_Multicast,multicast,,0.06,150,24.9,CoolPsycasts.CompProperties_AbilityMulticastAbility; CoolPsycasts.CompProperties_AbilityDestroyFactionRelations; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Archotech/Multicast.xml
+CoolPsycasts_ReverseGravity,reverse gravity,,0.1,120,20.9,CoolPsycasts.CompProperties_AbilityMakeFallFlyer; CoolPsycasts.CompProperties_AbilityDestroyFactionRelations; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Archotech/ReverseGravity.xml
+CoolPsycasts_ReverseTime,reverse time,,0.05,120,,CoolPsycasts.CompProperties_AbilityReverseTime; CoolPsycasts.CompProperties_AbilityGiveHediffSeverity; CoolPsycasts.CompProperties_AbilityDestroyFactionRelations; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Archotech/ReverseTime.xml
+CoolPsycasts_Unmake,unmake,,0.01,50,,CoolPsycasts.CompProperties_AbilityUnmake; CoolPsycasts.CompProperties_AbilityDestroyFactionRelations; CoolPsycasts.CompProperties_AbilityCauseArchotechActivity,1.6/Defs/Abilities/Archotech/Unmake.xml

@@ -1,0 +1,9 @@
+<!-- BEISPIEL: Diese Datei wird NICHT geladen. Kopieren nach 1.6/Patches/ um sie zu aktivieren. -->
+<Patch>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Learn"]/statBases/Ability_PsyfocusCost</xpath>
+    <value>
+      <Ability_PsyfocusCost>0.20</Ability_PsyfocusCost>
+    </value>
+  </Operation>
+</Patch>

@@ -1,0 +1,11 @@
+<Defs>
+  <!-- Uniquely named flyer avoids changing Cooler Psycasts' other flying effects. -->
+  <ThingDef ParentName="PawnFlyerBase">
+    <defName>CPT_DirectFallingFlyer</defName>
+    <thingClass>CoolerPsycastsTweaks.PawnFlyer_DirectDamageOnLanding</thingClass>
+    <pawnFlyer>
+      <flightDurationMin>4</flightDurationMin>
+      <heightFactor>50</heightFactor>
+    </pawnFlyer>
+  </ThingDef>
+</Defs>

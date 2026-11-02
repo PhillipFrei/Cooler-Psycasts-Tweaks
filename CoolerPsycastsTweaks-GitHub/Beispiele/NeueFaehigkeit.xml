@@ -1,0 +1,30 @@
+<!-- BEISPIEL: Diese Datei wird NICHT geladen. Def, Icon, Werte und Wirkung werden spaeter auf Wunsch angepasst. -->
+<!-- Wiederverwendung des existierenden Effekts aus Cooler Psycasts (keine neue C#-Wirkung). -->
+<Defs>
+  <AbilityDef ParentName="PsycastBase">
+    <defName>CPCT_ExampleLongEmesis</defName>
+    <label>extended emesis (example)</label>
+    <description>Example ability. Reuses Cooler Psycasts' emesis effect.</description>
+    <level>2</level>
+    <iconPath>UI/Abilities/Emesis</iconPath>
+    <hotKey>Misc12</hotKey>
+    <casterMustBeCapableOfViolence>false</casterMustBeCapableOfViolence>
+    <statBases>
+      <Ability_PsyfocusCost>0.035</Ability_PsyfocusCost>
+      <Ability_EntropyGain>15</Ability_EntropyGain>
+    </statBases>
+    <verbProperties>
+      <warmupTime>0.5</warmupTime>
+      <range>40</range>
+      <targetParams>
+        <canTargetAnimals>true</canTargetAnimals>
+        <canTargetSelf>true</canTargetSelf>
+        <canTargetLocations>false</canTargetLocations>
+        <onlyTargetPsychicSensitive>true</onlyTargetPsychicSensitive>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CoolPsycasts.CompProperties_AbilityEmesis" />
+    </comps>
+  </AbilityDef>
+</Defs>
