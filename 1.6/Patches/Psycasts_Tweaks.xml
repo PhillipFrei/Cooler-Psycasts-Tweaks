@@ -112,4 +112,10 @@
     <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]/workerClass</xpath>
     <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGravityPulse</workerClass></value>
   </Operation>
+
+  <!-- Gravity Pulse: double cast targeting range 20 -> 40 cells. AOE radius remains 10. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/verbProperties/range</xpath>
+    <value><range>40</range></value>
+  </Operation>
 </Patch>
