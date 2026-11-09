@@ -13,9 +13,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install .NET SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
       - name: Validate XML syntax
@@ -43,7 +43,7 @@ jobs:
           }
           Compress-Archive -Path "publish/CoolerPsycastsTweaks" -DestinationPath "CoolerPsycastsTweaks-RW1.6.zip" -Force
       - name: Upload compiled mod
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: CoolerPsycastsTweaks-RW1.6
           path: CoolerPsycastsTweaks-RW1.6.zip
