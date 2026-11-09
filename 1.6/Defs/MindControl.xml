@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Always present even when Ideology is disabled. Replaces old Enslave. -->
+  <AbilityDef ParentName="PsycastBase">
+    <defName>CPT_MindControl</defName>
+    <label>enslave (mind control)</label>
+    <description>Temporarily take control of a hostile human pawn for 12 game-hours. On expiry or removal of the control hediff, their former faction is restored. Cooldown: 16 game-days. Does not require Ideology.</description>
+    <level>6</level>
+    <iconPath>UI/Abilities/Enslave</iconPath>
+    <hostile>true</hostile>
+    <casterMustBeCapableOfViolence>false</casterMustBeCapableOfViolence>
+    <cooldownTicksRange>960000</cooldownTicksRange>
+    <statBases>
+      <Ability_EntropyGain>80</Ability_EntropyGain>
+      <Ability_PsyfocusCost>0.6</Ability_PsyfocusCost>
+    </statBases>
+    <verbProperties>
+      <warmupTime>1</warmupTime>
+      <range>24.9</range>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetAnimals>false</canTargetAnimals>
+        <canTargetMechs>false</canTargetMechs>
+        <onlyTargetPsychicSensitive>true</onlyTargetPsychicSensitive>
+        <canTargetLocations>false</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CoolerPsycastsTweaks.CompProperties_TemporaryMindControl">
+        <controlHediff>CPT_TemporaryMindControlled</controlHediff>
+        <durationTicks>30000</durationTicks>
+      </li>
+    </comps>
+  </AbilityDef>
+  <HediffDef>
+    <defName>CPT_TemporaryMindControlled</defName>
+    <label>mind controlled</label>
+    <description>This pawn temporarily serves another faction. Their original faction returns when the effect ends.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <comps>
+      <li Class="CoolerPsycastsTweaks.HediffCompProperties_TemporaryMindControl" />
+    </comps>
+  </HediffDef>
+</Defs>
