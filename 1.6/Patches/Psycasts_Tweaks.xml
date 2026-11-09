@@ -43,18 +43,9 @@
   </Operation>
 
   <!-- Gravity Pulse: AOE 4.9 -> 10; blunt hit 1 -> 10; pull 4 -> 8. -->
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]/radius</xpath>
-    <value><radius>10</radius></value>
-  </Operation>
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]/damage</xpath>
-    <value><damage>10</damage></value>
-  </Operation>
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]/modExtensions/li[@Class="CoolPsycasts.DamageExtension"]/pushBackDistance</xpath>
-    <value><pushBackDistance>8</pushBackDistance></value>
-  </Operation>
+
+
+
 
   <!-- Learn: keep the rest of the ability/costs intact, switch only its effect class. -->
   <Operation Class="PatchOperationReplace">
@@ -109,14 +100,8 @@
   </Operation>
 
   <!-- Normal damage pipeline with 300% armor penetration (3.0) -->
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/defaultArmorPenetration</xpath>
-    <value><defaultArmorPenetration>3</defaultArmorPenetration></value>
-  </Operation>
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]</xpath>
-    <value><defaultArmorPenetration>3</defaultArmorPenetration></value>
-  </Operation>
+
+
 
   <!-- Ease Gravity: 10% upfront, one day, 50% move speed, no ongoing drain -->
   <Operation Class="PatchOperationReplace">
@@ -183,5 +168,32 @@
   <!-- Remove obsolete original tooltip, which still calculates 0.5 neural heat/tick. -->
   <Operation Class="PatchOperationRemove">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_EntropicFocus"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityPreviewPsyfocusAmount"]</xpath>
+  </Operation>
+
+  <!-- v5 Gamma Ray: original directional radiation cone, direct Burn hediff and cancer
+       via the C# worker, bypassing armor and Combat Tweaks' apparel absorption. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/workerClass</xpath>
+    <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGamma</workerClass></value>
+  </Operation>
+
+  <!-- v5 Gravity Pulse: replace the explosion effect entirely. Pull each pawn
+       toward the selected impact point (up to 8 cells), then apply 10
+       immediate crush injury severity, without an armor damage calculation. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]</xpath>
+    <value>
+      <li Class="CoolerPsycastsTweaks.CompProperties_GravityConvergence">
+        <radius>10</radius>
+        <pullCells>8</pullCells>
+        <damage>10</damage>
+        <marker>CoolPsycasts_GravityPulseMarker</marker>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/description</xpath>
+    <value><description>Concentrates gravity around the selected point, drawing nearby pawns toward its center by up to 8 cells (radius 10), then inflicting 10 direct crush injury severity regardless of armor. Cast range: 40 cells. Walls and occupied cells stop the pull.</description></value>
   </Operation>
 </Patch>

@@ -143,17 +143,17 @@ namespace CoolerPsycastsTweaks
         {
             Pawn landingPawn = FlyingPawn;
             base.RespawnPawn();
-            if (landingPawn == null || landingPawn.DeadOrDowned) return;
+            if (landingPawn == null || landingPawn.Dead) return;
             if (mass <= 0f) mass = 100f;
             var parts = landingPawn.health.hediffSet.GetNotMissingParts()
                 .Where(p => p.def.tags != null && p.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore))
                 .InRandomOrder().ToList();
             if (parts.Count == 0)
-                landingPawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, mass / 5f, 3f, -1f, null, landingPawn.RaceProps.body.corePart));
+                DirectHealthDamage.Injury(landingPawn, mass / 5f, "Crush", landingPawn.RaceProps.body.corePart);
             else
                 foreach (BodyPartRecord part in parts)
                     if (!landingPawn.Dead)
-                        landingPawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, mass / 5f, 3f, -1f, null, part));
+                        DirectHealthDamage.Injury(landingPawn, mass / 5f, "Crush", part);
         }
 
         public override void ExposeData()
