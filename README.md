@@ -1,5 +1,7 @@
 # Cooler Psycasts Tweaks — GitHub-Actions-Projekt für RimWorld 1.6
 
+**Aktueller Stand: v4.** Die früheren Angaben zu direktem Hediff-Schaden bei Gamma Ray, Gravity Pulse und Reverse Gravity im v3-Abschnitt sind historisch und wurden durch **normale Schadensberechnung mit 300 % Rüstungsdurchdringung** ersetzt. Die vollständige aktuelle Konfiguration steht in [docs/v4-Implementierung.md](docs/v4-Implementierung.md).
+
 Ausgangsbasis: vom Benutzer hochgeladener Cooler-Psycasts-Mod **2.8.7.6**
 (PackageId `metalocif.coolerpsycasts`, Steam Workshop `3285538682`).
 Dieses Repository ist ein **separates Add-on**: keine Original-DLLs, keine Texturen

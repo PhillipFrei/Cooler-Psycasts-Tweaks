@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_SkillDrain"]</xpath>
+    <match Class="PatchOperationRemove">
+      <xpath>Defs/AbilityDef[defName="CoolPsycasts_SkillDrain"]</xpath>
+    </match>
+  </Operation>
+</Patch>

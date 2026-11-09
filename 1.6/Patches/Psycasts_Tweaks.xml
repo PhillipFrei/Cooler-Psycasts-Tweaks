@@ -101,21 +101,87 @@
       </li>
     </value>
   </Operation>
-  <!-- Gamma Ray: keep existing cone and cancer DamageDef, only use a
-       replacement DamageWorker for direct pawn injuries. -->
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/workerClass</xpath>
-    <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGamma</workerClass></value>
-  </Operation>
-  <!-- Gravity Pulse: retain explosion, use worker with direct pawn injury + pull. -->
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]/workerClass</xpath>
-    <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGravityPulse</workerClass></value>
-  </Operation>
 
   <!-- Gravity Pulse: double cast targeting range 20 -> 40 cells. AOE radius remains 10. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/verbProperties/range</xpath>
     <value><range>40</range></value>
+  </Operation>
+
+  <!-- Normal damage pipeline with 300% armor penetration (3.0) -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/defaultArmorPenetration</xpath>
+    <value><defaultArmorPenetration>3</defaultArmorPenetration></value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DamageDef[defName="CoolPsycasts_GravityPulseDD"]</xpath>
+    <value><defaultArmorPenetration>3</defaultArmorPenetration></value>
+  </Operation>
+
+  <!-- Ease Gravity: 10% upfront, one day, 50% move speed, no ongoing drain -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EaseGravity"]/statBases/Ability_PsyfocusCost</xpath>
+    <value><Ability_PsyfocusCost>0.1</Ability_PsyfocusCost></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EaseGravity"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityToggleHediff"]</xpath>
+    <value>
+      <li Class="CoolerPsycastsTweaks.CompProperties_TimedGravity">
+        <hediffDef>CoolPsycasts_EaseGravityHD</hediffDef>
+        <durationTicks>60000</durationTicks>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EaseGravityHD"]/comps/li[@Class="CoolPsycasts.HediffCompProperties_PsyfocusPerTick"]</xpath>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EaseGravityHD"]/comps</xpath>
+    <value><li Class="HediffCompProperties_Disappears"><disappearsAfterTicks>60000</disappearsAfterTicks></li></value>
+  </Operation>
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EaseGravityHD"]/stages/li/statOffsets</xpath>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EaseGravityHD"]/stages/li/statFactors</xpath>
+    <value><MoveSpeed>1.5</MoveSpeed></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EaseGravity"]/description</xpath>
+    <value><description>Reduces gravity for 24 game-hours. Doubles carrying capacity and grants 50% more movement speed at 10% psyfocus cost, without continuing drain.</description></value>
+  </Operation>
+
+  <!-- Controlled focus: 10000 ticks for 100%, up to 30 neural heat. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EntropicFocus"]/statBases/Ability_PsyfocusCost</xpath>
+    <value><Ability_PsyfocusCost>0</Ability_PsyfocusCost></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EntropicFocusHD"]/comps</xpath>
+    <value><comps><li Class="CoolerPsycastsTweaks.HediffCompProperties_ControlledFocus">
+       <focusPerTick>0.0001</focusPerTick><heatPerTick>0.003</heatPerTick>
+    </li></comps></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/HediffDef[defName="CoolPsycasts_EntropicFocusHD"]/stages/li/statFactors/PsychicEntropyRecoveryRate</xpath>
+    <value><PsychicEntropyRecoveryRate>1</PsychicEntropyRecoveryRate></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EntropicFocus"]/description</xpath>
+    <value><description>Charges psyfocus from empty to full in four game-hours, producing limited neural heat and keeping natural neural heat recovery. Ends when psyfocus is full.</description></value>
+  </Operation>
+
+  <!-- Embedded trap: 24 hours -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="CoolPsycasts_TrapPsycast"]/comps/li[@Class="CompProperties_DestroyAfterDelay"]/delayTicks</xpath>
+    <value><delayTicks>60000</delayTicks></value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Embed"]/description</xpath>
+    <value><description>Embed a known psycast as a trap for up to 24 game-hours. A hostile psychic pawn triggers it on the trap cell.</description></value>
+  </Operation>
+  <!-- Remove obsolete original tooltip, which still calculates 0.5 neural heat/tick. -->
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EntropicFocus"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityPreviewPsyfocusAmount"]</xpath>
   </Operation>
 </Patch>

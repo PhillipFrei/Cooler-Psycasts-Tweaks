@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <AbilityDef ParentName="PsycastBase">
+    <defName>CPT_CombatSkillDrain</defName>
+    <label>skill drain</label>
+    <description>Temporarily reduce the target's effective Shooting or Melee by four levels for two game-hours. The chosen skill must be at least level four. Restores 50 percentage points of the caster's psyfocus permanently, up to 100%. Cooldown: 1 game-day.</description>
+    <level>7</level>
+    <iconPath>UI/Abilities/SkillDrain</iconPath>
+    <casterMustBeCapableOfViolence>false</casterMustBeCapableOfViolence>
+    <cooldownTicksRange>60000</cooldownTicksRange>
+    <statBases><Ability_PsyfocusCost>0</Ability_PsyfocusCost></statBases>
+    <verbProperties>
+      <warmupTime>0.5</warmupTime>
+      <range>20</range>
+      <targetParams>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetLocations>false</canTargetLocations>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CoolerPsycastsTweaks.CompProperties_CombatSkillDrain">
+        <shootingDrain>CPT_ShootingDrain</shootingDrain>
+        <meleeDrain>CPT_MeleeDrain</meleeDrain>
+        <durationTicks>5000</durationTicks>
+        <minimumSkill>4</minimumSkill>
+        <psyfocusGain>0.5</psyfocusGain>
+      </li>
+    </comps>
+  </AbilityDef>
+  <HediffDef ParentName="PsycastHediffBase">
+    <defName>CPT_ShootingDrain</defName>
+    <label>shooting drained</label>
+    <description>Temporary reduction of the effective Shooting skill. XP is unchanged.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <aptitudes><Shooting>-4</Shooting></aptitudes>
+    <comps>
+      <li Class="HediffCompProperties_Disappears"><disappearsAfterTicks>5000</disappearsAfterTicks></li>
+    </comps>
+  </HediffDef>
+  <HediffDef ParentName="PsycastHediffBase">
+    <defName>CPT_MeleeDrain</defName>
+    <label>melee drained</label>
+    <description>Temporary reduction of the effective Melee skill. XP is unchanged.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <aptitudes><Melee>-4</Melee></aptitudes>
+    <comps>
+      <li Class="HediffCompProperties_Disappears"><disappearsAfterTicks>5000</disappearsAfterTicks></li>
+    </comps>
+  </HediffDef>
+</Defs>

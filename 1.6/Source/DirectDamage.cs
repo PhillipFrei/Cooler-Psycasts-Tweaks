@@ -149,11 +149,11 @@ namespace CoolerPsycastsTweaks
                 .Where(p => p.def.tags != null && p.def.tags.Contains(BodyPartTagDefOf.MovingLimbCore))
                 .InRandomOrder().ToList();
             if (parts.Count == 0)
-                DirectHealthDamage.Injury(landingPawn, mass / 5f, "Crush", landingPawn.RaceProps.body.corePart);
+                landingPawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, mass / 5f, 3f, -1f, null, landingPawn.RaceProps.body.corePart));
             else
                 foreach (BodyPartRecord part in parts)
                     if (!landingPawn.Dead)
-                        DirectHealthDamage.Injury(landingPawn, mass / 5f, "Crush", part);
+                        landingPawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, mass / 5f, 3f, -1f, null, part));
         }
 
         public override void ExposeData()
