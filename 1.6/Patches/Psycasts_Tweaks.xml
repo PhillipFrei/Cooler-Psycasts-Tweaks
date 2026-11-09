@@ -180,4 +180,8 @@
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_Embed"]/description</xpath>
     <value><description>Embed a known psycast as a trap for up to 24 game-hours. A hostile psychic pawn triggers it on the trap cell.</description></value>
   </Operation>
+  <!-- Remove obsolete original tooltip, which still calculates 0.5 neural heat/tick. -->
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_EntropicFocus"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityPreviewPsyfocusAmount"]</xpath>
+  </Operation>
 </Patch>
