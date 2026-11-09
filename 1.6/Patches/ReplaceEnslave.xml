@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Original ability only exists when Ideology is loaded. Remove it if found,
+       avoiding a second permanent enslavement psycast. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/AbilityDef[defName="CoolPsycasts_Enslave"]</xpath>
+    <match Class="PatchOperationRemove">
+      <xpath>Defs/AbilityDef[defName="CoolPsycasts_Enslave"]</xpath>
+    </match>
+  </Operation>
+</Patch>
