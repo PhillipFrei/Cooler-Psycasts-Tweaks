@@ -100,6 +100,13 @@ namespace CoolerPsycastsTweaks
 
     public sealed class HediffComp_GravityPull : HediffComp
     {
+        private static readonly IntVec3[] NeighborOffsets =
+        {
+            new IntVec3(1, 0, 0), new IntVec3(1, 0, 1),
+            new IntVec3(0, 0, 1), new IntVec3(-1, 0, 1),
+            new IntVec3(-1, 0, 0), new IntVec3(-1, 0, -1),
+            new IntVec3(0, 0, -1), new IntVec3(1, 0, -1)
+        };
         private IntVec3 center = IntVec3.Invalid;
         private int remainingSteps;
         private int stepInterval = 18;
@@ -183,7 +190,7 @@ namespace CoolerPsycastsTweaks
 
             IntVec3 best = current;
             float nearest = current.DistanceToSquared(center);
-            foreach (IntVec3 delta in GenAdj.AdjacentCells8Way)
+            foreach (IntVec3 delta in NeighborOffsets)
             {
                 IntVec3 cell = current + delta;
                 if (!cell.InBounds(map) || !cell.Walkable(map)) continue;
