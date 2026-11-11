@@ -44,11 +44,13 @@ namespace CoolerPsycastsTweaks
             // Original DamageDef additionally gives transient gamma radiation that
             // turns into carcinoma on removal. The normal damage worker's
             // additionalHediffs pipeline is bypassed, so apply it explicitly.
+            // Only direct Burn damage is tripled in v6: radiation/cancer severity
+            // stays capped at the v5 (30-damage) reference level.
             HediffDef cancer = DefDatabase<HediffDef>.GetNamed("CoolPsycasts_CancerGiver", false);
             if (!pawn.Dead && cancer != null)
             {
                 Hediff radiation = HediffMaker.MakeHediff(cancer, pawn);
-                radiation.Severity = Mathf.Max(0.1f, dinfo.Amount * 0.5f
+                radiation.Severity = Mathf.Max(0.1f, Mathf.Min(dinfo.Amount, 30f) * 0.5f
                     * Mathf.Max(1f - pawn.GetStatValue(StatDefOf.ToxicResistance), 0f));
                 pawn.health.AddHediff(radiation);
             }

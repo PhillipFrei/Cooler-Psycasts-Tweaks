@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <HediffDef>
+    <defName>CPT_GravityPulled</defName>
+    <label>gravitational pull</label>
+    <description>Being drawn slowly into a gravity anomaly. The pawn remains briefly held at the end of the pull before taking direct crush damage.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <isBad>true</isBad>
+    <comps>
+      <li Class="CoolerPsycastsTweaks.HediffCompProperties_GravityPull" />
+    </comps>
+    <stages>
+      <li>
+        <statFactors>
+          <MoveSpeed>0.01</MoveSpeed>
+        </statFactors>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

@@ -32,14 +32,14 @@
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_Graftskip" or defName="CoolPsycasts_Multicast" or defName="CoolPsycasts_ReverseGravity" or defName="CoolPsycasts_ReverseTime" or defName="CoolPsycasts_Unmake"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityCauseArchotechActivity"]</xpath>
   </Operation>
 
-  <!-- Gamma Ray: the real explosion call uses DamageDef.defaultDamage, not damAmount. -->
+  <!-- Gamma Ray v6: 90 direct Burn injury, 3x v5; actual damage uses DamageDef.defaultDamage. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/DamageDef[defName="CoolPsycasts_GammaRadiation"]/defaultDamage</xpath>
-    <value><defaultDamage>30</defaultDamage></value>
+    <value><defaultDamage>90</defaultDamage></value>
   </Operation>
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GammaRay"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilitySpew"]/damAmount</xpath>
-    <value><damAmount>30</damAmount></value>
+    <value><damAmount>90</damAmount></value>
   </Operation>
 
   <!-- Gravity Pulse: AOE 4.9 -> 10; blunt hit 1 -> 10; pull 4 -> 8. -->
@@ -178,22 +178,25 @@
   </Operation>
 
   <!-- v5 Gravity Pulse: replace the explosion effect entirely. Pull each pawn
-       toward the selected impact point (up to 8 cells), then apply 10
+       toward the selected impact point (up to 14 cells over time), hold them for 120 ticks, then apply 30
        immediate crush injury severity, without an armor damage calculation. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]</xpath>
     <value>
       <li Class="CoolerPsycastsTweaks.CompProperties_GravityConvergence">
-        <radius>10</radius>
-        <pullCells>8</pullCells>
-        <damage>10</damage>
+        <radius>14</radius>
+        <pullCells>14</pullCells>
+        <damage>30</damage>
         <marker>CoolPsycasts_GravityPulseMarker</marker>
+        <pullHediff>CPT_GravityPulled</pullHediff>
+        <stepIntervalTicks>18</stepIntervalTicks>
+        <holdTicks>120</holdTicks>
       </li>
     </value>
   </Operation>
 
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/description</xpath>
-    <value><description>Concentrates gravity around the selected point, drawing nearby pawns toward its center by up to 8 cells (radius 10), then inflicting 10 direct crush injury severity regardless of armor. Cast range: 40 cells. Walls and occupied cells stop the pull.</description></value>
+    <value><description>Concentrates gravity around the selected point, pulling pawns gradually toward its center by up to 14 cells (radius 14), holding them for 120 ticks and then dealing 30 direct crush injury severity regardless of armor. Cast range: 40 cells. Walls and occupied cells stop the pull.</description></value>
   </Operation>
 </Patch>
