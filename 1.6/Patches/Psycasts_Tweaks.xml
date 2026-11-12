@@ -42,7 +42,7 @@
     <value><damAmount>90</damAmount></value>
   </Operation>
 
-  <!-- Gravity Pulse: AOE 4.9 -> 10; blunt hit 1 -> 10; pull 4 -> 8. -->
+  <!-- Gravity Pulse v7: 14 radius, three 3-damage armor-piercing hits, smooth pull and stun. -->
 
 
 
@@ -93,7 +93,7 @@
     </value>
   </Operation>
 
-  <!-- Gravity Pulse: double cast targeting range 20 -> 40 cells. AOE radius remains 10. -->
+  <!-- Gravity Pulse cast targeting range 40 cells; separate effect radius is 14. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/verbProperties/range</xpath>
     <value><range>40</range></value>
@@ -177,16 +177,17 @@
     <value><workerClass>CoolerPsycastsTweaks.DamageWorker_DirectGamma</workerClass></value>
   </Operation>
 
-  <!-- v5 Gravity Pulse: replace the explosion effect entirely. Pull each pawn
-       toward the selected impact point (up to 14 cells over time), hold them for 120 ticks, then apply 30
-       immediate crush injury severity, without an armor damage calculation. -->
+  <!-- v7: smooth suction (visual PawnTweener interpolation + real cell movement),
+       three separate 3-damage Blunt/Crush pulses with 1000% AP and 180-tick stun. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]</xpath>
     <value>
       <li Class="CoolerPsycastsTweaks.CompProperties_GravityConvergence">
         <radius>14</radius>
         <pullCells>14</pullCells>
-        <damage>30</damage>
+        <damagePerPulse>3</damagePerPulse>
+        <armorPenetration>10</armorPenetration>
+        <stunTicks>180</stunTicks>
         <marker>CoolPsycasts_GravityPulseMarker</marker>
         <pullHediff>CPT_GravityPulled</pullHediff>
         <stepIntervalTicks>18</stepIntervalTicks>
@@ -197,6 +198,6 @@
 
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/description</xpath>
-    <value><description>Concentrates gravity around the selected point, pulling pawns gradually toward its center by up to 14 cells (radius 14), holding them for 120 ticks and then dealing 30 direct crush injury severity regardless of armor. Cast range: 40 cells. Walls and occupied cells stop the pull.</description></value>
+    <value><description>Draws all pawns within 14 cells smoothly toward the target point. Three armor-piercing crush pulses deal 3 damage each (1000% armor penetration): one during the pull, one during the brief hold, and one at release. Survivors are stunned for 3 seconds. Cast range: 40 cells. Walls and occupied cells block movement.</description></value>
   </Operation>
 </Patch>
