@@ -42,7 +42,7 @@
     <value><damAmount>90</damAmount></value>
   </Operation>
 
-  <!-- Gravity Pulse v7: 14 radius, three 3-damage armor-piercing hits, smooth pull and stun. -->
+  <!-- Gravity Pulse v8: radius 14, three 30-damage armor-piercing hits, smooth pull, light flashes and stun. -->
 
 
 
@@ -178,14 +178,14 @@
   </Operation>
 
   <!-- v7: smooth suction (visual PawnTweener interpolation + real cell movement),
-       three separate 3-damage Blunt/Crush pulses with 1000% AP and 180-tick stun. -->
+       three separate 30-damage Blunt/Crush pulses with 1000% AP and 180-tick stun. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/comps/li[@Class="CoolPsycasts.CompProperties_AbilityExplosion"]</xpath>
     <value>
       <li Class="CoolerPsycastsTweaks.CompProperties_GravityConvergence">
         <radius>14</radius>
         <pullCells>14</pullCells>
-        <damagePerPulse>3</damagePerPulse>
+        <damagePerPulse>30</damagePerPulse>
         <armorPenetration>10</armorPenetration>
         <stunTicks>180</stunTicks>
         <marker>CoolPsycasts_GravityPulseMarker</marker>
@@ -198,6 +198,6 @@
 
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/AbilityDef[defName="CoolPsycasts_GravityPulse"]/description</xpath>
-    <value><description>Draws all pawns within 14 cells smoothly toward the target point. Three armor-piercing crush pulses deal 3 damage each (1000% armor penetration): one during the pull, one during the brief hold, and one at release. Survivors are stunned for 3 seconds. Cast range: 40 cells. Walls and occupied cells block movement.</description></value>
+    <value><description>Draws all pawns within 14 cells smoothly toward the target point. Three luminous armor-piercing crush pulses deal 30 damage each (1000% armor penetration): one during the pull, one during the brief hold, and one at release. Survivors are stunned for 3 seconds. Cast range: 40 cells. Walls and occupied cells block movement.</description></value>
   </Operation>
 </Patch>
