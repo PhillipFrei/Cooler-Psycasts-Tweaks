@@ -13,7 +13,7 @@ namespace CoolerPsycastsTweaks
     {
         public float radius = 14f;
         public int pullCells = 14;
-        public float damagePerPulse = 3f;
+        public float damagePerPulse = 30f;
         public float armorPenetration = 10f;
         public int stunTicks = 180;
         public int stepIntervalTicks = 18;
@@ -141,7 +141,7 @@ namespace CoolerPsycastsTweaks
         private int holdRemaining;
         private int elapsedTicks;
         private int phase; // 0 = pull, 1 = hold, 2 = finished
-        private float damagePerPulse = 3f;
+        private float damagePerPulse = 30f;
         private float armorPenetration = 10f;
         private int stunTicks = 180;
         private bool firstPulseDone;
@@ -279,13 +279,37 @@ namespace CoolerPsycastsTweaks
             if (pawn == null || pawn.Dead || !pawn.Spawned || damagePerPulse <= 0f)
                 return;
 
-            // Normal RimWorld injury pipeline; 10.0 armor penetration = 1000%.
-            // This generates real damage events and generally bypasses standard
-            // apparel armor, unlike direct Hediff insertion.
+            // Bright blue-white impact at the pawn, plus a throttled ring
+            // and short-lived *actual* blue glower at the center. Effects are
+            // emitted before damage so lethal pulses still produce a flash.
+            Map map = pawn.Map;
+            FleckMaker.ThrowLightningGlow(pawn.DrawPos, map, 2.8f);
+            FleckMaker.Static(pawn.Position, map, FleckDefOf.PsycastSkipFlashEntry, 1.8f);
+            EmitCenterFlash(map);
+
+            // Normal RimWorld Blunt/Crush damage with 1000% armor penetration.
+            // Each of the three separate hits now deals 30 nominal damage.
             pawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, damagePerPulse,
                 armorPenetration, -1f, sourceCaster));
-            if (pawn.Spawned && pawn.Map != null)
-                FleckMaker.Static(pawn.Position, pawn.Map, FleckDefOf.PsycastAreaEffect);
+        }
+
+        private static int lastCenterFlashTick = int.MinValue;
+
+        private void EmitCenterFlash(Map map)
+        {
+            if (map == null || !center.InBounds(map)) return;
+            int now = Find.TickManager?.TicksGame ?? 0;
+            // Several pawns can receive the same wave in one tick. Avoid
+            // spawning one map light for every pawn in a large raid.
+            if (lastCenterFlashTick != int.MinValue && now - lastCenterFlashTick < 12)
+                return;
+            lastCenterFlashTick = now;
+
+            FleckMaker.ThrowLightningGlow(center.ToVector3Shifted(), map, 6f);
+            FleckMaker.Static(center, map, FleckDefOf.EntropyPulse, 7f);
+            ThingDef flash = DefDatabase<ThingDef>.GetNamed("CPT_GravityPulseFlash", false);
+            if (flash != null)
+                GenSpawn.Spawn(flash, center, map);
         }
 
         private void Finish(Pawn pawn)
@@ -334,7 +358,7 @@ namespace CoolerPsycastsTweaks
             Scribe_Values.Look(ref holdRemaining, "CPT_holdRemaining", 0);
             Scribe_Values.Look(ref elapsedTicks, "CPT_elapsedTicks", 0);
             Scribe_Values.Look(ref phase, "CPT_phase", 0);
-            Scribe_Values.Look(ref damagePerPulse, "CPT_damagePerPulse", 3f);
+            Scribe_Values.Look(ref damagePerPulse, "CPT_damagePerPulse", 30f);
             Scribe_Values.Look(ref armorPenetration, "CPT_armorPen", 10f);
             Scribe_Values.Look(ref stunTicks, "CPT_stunTicks", 180);
             Scribe_Values.Look(ref firstPulseDone, "CPT_firstPulseDone", false);

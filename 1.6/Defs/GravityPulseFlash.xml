@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Invisible, non-blocking light pulse. This is not a building and must
+       never replace, occupy or damage existing structures at the target cell. -->
+  <ThingDef>
+    <defName>CPT_GravityPulseFlash</defName>
+    <label>gravity pulse light flash</label>
+    <thingClass>CoolerPsycastsTweaks.Thing_GravityPulseFlash</thingClass>
+    <category>Ethereal</category>
+    <tickerType>Normal</tickerType>
+    <drawerType>None</drawerType>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <passability>Standable</passability>
+    <fillPercent>0</fillPercent>
+    <useHitPoints>false</useHitPoints>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>8</glowRadius>
+        <glowColor>(90, 180, 255, 0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>
