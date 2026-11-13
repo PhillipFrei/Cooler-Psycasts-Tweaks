@@ -11,7 +11,7 @@ namespace CoolerPsycastsTweaks
     {
         private int ticksRemaining = 15;
 
-        public override void Tick()
+        protected override void Tick()
         {
             base.Tick();
             if (--ticksRemaining <= 0 && !Destroyed)
