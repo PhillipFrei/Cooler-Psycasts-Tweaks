@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Switch only the Timeshunt skyfaller class. The original ability,
+       cost, target conditions and duration remain untouched. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="TimeshuntSkyfaller"]/thingClass</xpath>
+    <value><thingClass>CoolerPsycastsTweaks.Skyfaller_SafeTimeshunt</thingClass></value>
+  </Operation>
+</Patch>
