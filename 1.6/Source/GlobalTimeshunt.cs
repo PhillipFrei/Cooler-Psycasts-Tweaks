@@ -185,6 +185,9 @@ namespace CoolerPsycastsTweaks
             Map map = parent.pawn.Map;
             if (map == null) return;
 
+            // Capture the target cell before despawning its pawn. LocalTargetInfo
+            // can otherwise resolve to a no-longer-spawned Thing after Capture.
+            IntVec3 targetCell = target.Cell;
             Thing thing = target.Thing;
             if (thing is Pawn pawn)
             {
@@ -211,8 +214,8 @@ namespace CoolerPsycastsTweaks
             }
             else return;
 
-            EffecterDefOf.Skip_Entry.Spawn(target.Cell, map, 0.72f);
-            SoundDefOf.Psycast_Skip_Pulse.PlayOneShot(new TargetInfo(target.Cell, map));
+            EffecterDefOf.Skip_Entry.Spawn(targetCell, map, 0.72f);
+            SoundDefOf.Psycast_Skip_Pulse.PlayOneShot(new TargetInfo(targetCell, map));
             base.Apply(target, dest);
         }
 
