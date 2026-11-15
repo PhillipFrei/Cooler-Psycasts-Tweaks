@@ -19,6 +19,8 @@ namespace CoolerPsycastsTweaks
             contents = new ThingOwner<Thing>(this);
         }
 
+        public IThingHolder ParentHolder => null;
+
         public ThingOwner GetDirectlyHeldThings() => contents;
 
         public void GetChildHolders(List<IThingHolder> outChildren)
